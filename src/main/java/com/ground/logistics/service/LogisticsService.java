@@ -11,5 +11,5 @@ public interface LogisticsService {
     LogisticsDto findOne(Long id);
     LogisticsDto create(Logistics logistics);
     void delete(Long id);
-    LogisticsDto updateBook(Logistics logistics,Long id);
+    LogisticsDto updateLogistics(Logistics logistics,Long id);
 }

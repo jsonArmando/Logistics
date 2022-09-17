@@ -1,5 +1,6 @@
 package com.ground.logistics.exception;
 
+import com.ground.logistics.entities.ErrorMessage;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolationException;
+import java.util.Date;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -24,9 +26,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ LogisticsIdMismatchException.class,
             ConstraintViolationException.class,
             DataIntegrityViolationException.class })
-    public ResponseEntity<Object> handleBadRequest(
-            Exception ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getLocalizedMessage(),
-                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    public ResponseEntity<ErrorMessage> handleBadRequest(Exception ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

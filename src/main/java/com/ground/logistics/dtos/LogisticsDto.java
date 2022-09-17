@@ -12,6 +12,7 @@ public class LogisticsDto {
     private Long productQuantity;
     private Date registrationDate;
     private Date deadLine;
+    private String guideNumber;
     private String code;
     private String message;
 }

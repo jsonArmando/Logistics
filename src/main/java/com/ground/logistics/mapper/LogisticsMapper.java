@@ -15,11 +15,13 @@ public interface LogisticsMapper {
     @Mapping(source = "productQuantity", target = "productQuantity")
     @Mapping(source = "registrationDate", target = "registrationDate")
     @Mapping(source = "deadLine", target = "deadLine")
+    @Mapping(source = "guideNumber", target = "guideNumber")
     LogisticsDto toResponse(Logistics logistics);
     @Mapping(source = "id", target = "id")
     @Mapping(source = "kindProduct", target = "kindProduct")
     @Mapping(source = "productQuantity", target = "productQuantity")
     @Mapping(source = "registrationDate", target = "registrationDate")
     @Mapping(source = "deadLine", target = "deadLine")
-    Logistics toSave(LogisticsDto logisticsDto);
+    @Mapping(source = "guideNumber", target = "guideNumber")
+    LogisticsDto toSave(Logistics logistics);
 }

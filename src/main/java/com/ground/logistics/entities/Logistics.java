@@ -10,14 +10,13 @@ import java.util.Date;
 public class Logistics {
     @Id
     private String id;
-
     private String kindProduct;
     private Long productQuantity;
     private Date registrationDate;
     private Date deadLine;
     private String deliveryPort;
     private Double shippingPrice;
-    private String transportLogisticsType;
+    private Integer transportLogisticsType;
     private String transportLogisticsNumber;
     private String guideNumber;
 }
