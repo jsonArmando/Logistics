@@ -1,4 +1,4 @@
-package com.test.itsense.config;
+package com.ground.logistics.config;
 
 import java.io.IOException;
 import java.io.Serializable;

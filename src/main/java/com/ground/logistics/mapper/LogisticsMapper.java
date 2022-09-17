@@ -1,4 +1,25 @@
 package com.ground.logistics.mapper;
 
-public class LogisticsMapper {
+import com.ground.logistics.dtos.LogisticsDto;
+import com.ground.logistics.entities.Logistics;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
+
+import java.util.Date;
+
+@Mapper(componentModel = "spring")
+public interface LogisticsMapper {
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "kindProduct", target = "kindProduct")
+    @Mapping(source = "productQuantity", target = "productQuantity")
+    @Mapping(source = "registrationDate", target = "registrationDate")
+    @Mapping(source = "deadLine", target = "deadLine")
+    LogisticsDto toResponse(Logistics logistics);
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "kindProduct", target = "kindProduct")
+    @Mapping(source = "productQuantity", target = "productQuantity")
+    @Mapping(source = "registrationDate", target = "registrationDate")
+    @Mapping(source = "deadLine", target = "deadLine")
+    Logistics toSave(LogisticsDto logisticsDto);
 }
