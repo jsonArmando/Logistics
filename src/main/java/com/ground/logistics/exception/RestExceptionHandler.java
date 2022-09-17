@@ -19,7 +19,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ LogisticsNotFoundException.class })
     protected ResponseEntity<Object> handleNotFound(
             Exception ex, WebRequest request) {
-        return handleExceptionInternal(ex, "Book not found",
+        return handleExceptionInternal(ex, "Logistics not found",
                 new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
@@ -28,10 +28,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             DataIntegrityViolationException.class })
     public ResponseEntity<ErrorMessage> handleBadRequest(Exception ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.NO_CONTENT.value(),
                 new Date(),
                 ex.getMessage(),
                 request.getDescription(false));
-        return new ResponseEntity<ErrorMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.NO_CONTENT);
     }
 }

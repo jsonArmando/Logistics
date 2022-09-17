@@ -3,6 +3,7 @@ package com.ground.logistics.service.impl;
 import com.ground.logistics.dtos.LogisticsDto;
 import com.ground.logistics.entities.Logistics;
 import com.ground.logistics.exception.LogisticsIdMismatchException;
+import com.ground.logistics.exception.LogisticsNotFoundException;
 import com.ground.logistics.mapper.LogisticsMapper;
 import com.ground.logistics.repository.LogisticsRepository;
 import com.ground.logistics.service.LogisticsService;
@@ -33,12 +34,7 @@ public class LogisticsImpl implements LogisticsService {
 
     @Override
     public List findByProduct(String kindProduct) {
-        return null;
-    }
-
-    @Override
-    public LogisticsDto findOne(Long id) {
-        return null;
+        return logisticsRepository.findByGuideNumber(kindProduct);
     }
 
     @Override
@@ -53,7 +49,23 @@ public class LogisticsImpl implements LogisticsService {
                 throw new LogisticsIdMismatchException(LogisticsError.MAX_DUPLICATE.getMessage());
             }
         }
+        return save(logistics);
+    }
 
+    @Override
+    public void delete(String id) {
+        logisticsRepository.findById(id).orElseThrow(LogisticsNotFoundException::new);
+        logisticsRepository.deleteById(id);
+    }
+
+    @Override
+    public LogisticsDto updateLogistics(Logistics logistics, String id) {
+        if(id==null || id.isEmpty()){
+            throw new LogisticsIdMismatchException(LogisticsError.ID_LOGISTICS.getMessage());
+        }
+        return save(logistics);
+    }
+    private LogisticsDto save(Logistics logistics){
         if(logistics.getProductQuantity()>LogisticsError.PRODUCT_QUANTITY.getCode()){
             Double price =0.0;
             if(logistics.getTransportLogisticsType().equals(LogisticsError.GROUND_LOGISTICS.getCode())){
@@ -70,15 +82,5 @@ public class LogisticsImpl implements LogisticsService {
         result.setCode(String.valueOf(HttpStatus.CREATED));
         result.setMessage("Se ha creado registro con Éxito!");
         return result;
-    }
-
-    @Override
-    public void delete(Long id) {
-
-    }
-
-    @Override
-    public LogisticsDto updateLogistics(Logistics logistics, Long id) {
-        return null;
     }
 }
